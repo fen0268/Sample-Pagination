@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../model/content.dart';
+import '../model/people.dart';
 
 class CustomListTileWidget extends ConsumerWidget {
-  const CustomListTileWidget(this.content, {super.key});
+  const CustomListTileWidget(this.people, {super.key});
 
-  final Content content;
+  final People people;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -14,8 +14,8 @@ class CustomListTileWidget extends ConsumerWidget {
       height: 50,
       width: 100,
       child: ListTile(
-        title: Text(content.title),
-        subtitle: Text(content.content),
+        title: Text(people.family),
+        subtitle: Text(people.name),
       ),
     );
   }

@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_web_pagination/flutter_web_pagination.dart';
-import 'package:samp_pagination/controller/content_controller.dart';
 
 import '../../../controller/current_page_controller.dart';
+import '../controller/people_controller.dart';
 
 class PaginationWidget extends ConsumerWidget {
   const PaginationWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 現在のページ数を取得
+    /// 現在のページ数を取得
     final currentPage = ref.watch(currentPageNotifierProvider);
 
-    // 総件数を取得
-    final data = ref.watch(fetchAllContentProvider).value?.length;
+    /// 総件数を取得
+    final data = ref.watch(fetchAllPeopleProvider).value?.length;
 
-    // 1 ページあたりの表示件数
+    /// 1 ページあたりの表示件数
     const itemsPerPage = 10;
 
     // 総件数が 0 または null の場合は Pagination を表示しない
@@ -28,7 +28,6 @@ class PaginationWidget extends ConsumerWidget {
       // ボタンが押されたタイミングでの処理
       onPageChanged: (page) {
         ref.read(currentPageNotifierProvider.notifier).changePage(page);
-        // ref.read(scrollNotifierProvider.notifier).scrollToTop();
       },
 
       // 現在のページ数

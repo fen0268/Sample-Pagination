@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:samp_pagination/controller/content_controller.dart';
-import 'package:samp_pagination/widget/custom_list_tile_widget.dart';
-import 'package:samp_pagination/widget/pagination_widget.dart';
 
+import '../controller/people_controller.dart';
+import '../widget/custom_list_tile_widget.dart';
+import '../widget/pagination_widget.dart';
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final contentList = ref.watch(fetchPerPageContentProvider);
+    final peopleList = ref.watch(fetchPerPagePeopleProvider);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            contentList.when(
-              data: (content) {
-                if (content.isNotEmpty) {
+            peopleList.when(
+              data: (people) {
+                if (people.isNotEmpty) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: content.map(CustomListTileWidget.new).toList(),
+                      children: people.map(CustomListTileWidget.new).toList(),
                     ),
                   );
                 } else {
@@ -32,7 +32,7 @@ class HomePage extends ConsumerWidget {
               },
               loading: () => const CircularProgressIndicator(),
               error: (error, stackTrace) => Center(
-                child: SelectableText(error.toString()),
+                child: Text(error.toString()),
               ),
             ),
             const PaginationWidget(),
